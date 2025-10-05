@@ -32,7 +32,7 @@ if [ -z "$CONTAINERS" ]; then
 fi
 
 # Display found containers
-echo -e "\n${GREEN}${BOLD}✓ Found containers:${NC}"
+echo -e "\n${GREEN}${BOLD}✅ Found containers:${NC}"
 echo "$CONTAINERS" | nl -w2 -s'. ' | while IFS= read -r line; do
     echo -e "${BLUE}$line${NC}"
 done
@@ -63,11 +63,11 @@ SHELLS=("bash" "sh" "ash" "zsh" "fish")
 
 # Try each shell until one works
 for SHELL in "${SHELLS[@]}"; do
-    echo -e "${YELLOW}⚡ Trying shell: ${BOLD}$SHELL${NC}"
+    echo -e "${YELLOW}▶️ Trying shell: ${BOLD}$SHELL${NC}"
     if docker exec "$CONTAINER_ID" which "$SHELL" > /dev/null 2>&1 || \
        docker exec "$CONTAINER_ID" test -x "/bin/$SHELL" 2>/dev/null || \
        docker exec "$CONTAINER_ID" test -x "/usr/bin/$SHELL" 2>/dev/null; then
-        echo -e "${GREEN}${BOLD}✓ Shell $SHELL found! Connecting...${NC}\n"
+        echo -e "${GREEN}${BOLD}✅ Shell $SHELL found! Connecting...${NC}\n"
         docker exec -it "$CONTAINER_ID" "$SHELL"
         echo -e "\n${MAGENTA}Session ended.${NC}"
         exit 0
